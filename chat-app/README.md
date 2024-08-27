@@ -1,5 +1,5 @@
 
-# URL Shortener
+# Chat App
 
 Chat application build using Golang and WebSockets.
 
