@@ -57,7 +57,7 @@ func handleConnection(w http.ResponseWriter, r *http.Request, hub *Hub) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 
 	if err != nil {
-		log.Printf("Error while upgrading connection:", err)
+		log.Print("Error while upgrading connection:", err)
 		return
 	}
 
