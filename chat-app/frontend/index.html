@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        #messages li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        #messageInput {
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <ul id="messages"></ul>
+    <input id="messageInput" autocomplete="off" /><button id="sendButton">Send</button>
+    <script>
+        const ws = new WebSocket('ws://localhost:8080/ws');
+
+        ws.onmessage = function(event) {
+            const messages = document.getElementById('messages');
+            const message = document.createElement('li');
+            message.textContent = event.data;
+            messages.appendChild(message);
+        };
+
+        document.getElementById('sendButton').onclick = function() {
+            const input = document.getElementById('messageInput');
+            ws.send(input.value);
+            input.value = '';
+        };
+
+        document.getElementById('messageInput').onkeypress = function(event) {
+            if (event.key === 'Enter') {
+                document.getElementById('sendButton').click();
+            }
+        };
+    </script>
+</body>
+</html>
