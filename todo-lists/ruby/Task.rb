@@ -2,15 +2,14 @@ require 'json'
 require 'date'
 
 class Task
-  attr_accessor :title, :description, :urgency, :due_date, :completed
+  attr_accessor :title, :description, :due_date, :completed
 
-  def initialize(title, description, urgency, due_date)
+  def initialize(title, description, due_date)
 
     formated_date = due_date.split("/")
 
     @title = title
     @description = description
-    @urgency = urgency
     @due_date = Date.new(formated_date[2].to_i, formated_date[0].to_i, formated_date[1].to_i)
     @completed = false
   end
@@ -78,7 +77,6 @@ class Task
     return {
       title: @title,
       description: @description,
-      urgency: @description,
       due_date: @due_date.strftime("%m/%d/%Y"),
       completed: @completed
     }

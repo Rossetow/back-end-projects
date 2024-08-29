@@ -1,9 +1,9 @@
 def load_data
   tasks = [
-  Task.new("Finish report", "Complete the quarterly report for review.", "High", "08/30/2024"),
-  Task.new("Buy groceries", "Purchase vegetables, fruits, and dairy products.", "Medium", "09/02/2024"),
-  Task.new("Call plumber", "Schedule an appointment for fixing the sink.", "Low", "09/05/2024"),
-  Task.new("Book flight", "Book a flight for the upcoming conference.", "High", "09/10/2024")
+  Task.new("Finish report", "Complete the quarterly report for review.", "08/30/2024"),
+  Task.new("Buy groceries", "Purchase vegetables, fruits, and dairy products.", "09/02/2024"),
+  Task.new("Call plumber", "Schedule an appointment for fixing the sink.", "09/05/2024"),
+  Task.new("Book flight", "Book a flight for the upcoming conference.", "09/10/2024")
   ]
 
 

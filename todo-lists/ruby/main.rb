@@ -8,7 +8,7 @@ end
 
 puts("Load dummie data? (Y to load)")
 
-option = gets.chomp
+option = STDIN.gets.chomp
 
 if option.downcase == 'y'
   load_data

@@ -31,7 +31,6 @@ class Storage
       task_obj = Task.new(
         task["title"],
         task["description"],
-        task["urgency"],
         task["due_date"]
       )
 

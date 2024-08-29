@@ -14,10 +14,12 @@ class Todo_list
   end
 
   def start_app
-
     @storage = Storage.new()
 
     @task_list = @storage.load
+
+    system "clear"
+    system "cls"
 
     if @task_list.tasks.length > 0
       puts <<-'EOF'
@@ -29,7 +31,7 @@ __          __  _                            _                _    _
     \/  \/ \___|_|\___\___/|_| |_| |_|\___| |_.__/ \__,_|\___|_|\_(_)
 EOF
 
-      puts("Load previous data? (S/N)")
+      puts("Load previous data? (Y/N)")
 
       load_data = gets
 
@@ -70,7 +72,7 @@ EOF
     |_|\___/ \__,_|\___/  |_|_|___/\__(_)
 EOF
     sleep(0.5)
-    puts("(S) Save - (Q) Quit")
+    puts("(A) Add task - (S) Save - (Q) Quit")
     main_menu_render
 
     puts("\n Select a task or use a command: ")
@@ -81,8 +83,8 @@ EOF
       option = option.downcase
       case option
 
-      when "m"
-        return run_app
+      when "a"
+        return render_add_task
 
       when "s"
         @storage.save(@task_list)
@@ -167,7 +169,7 @@ EOF
           return update_render(task, id)
 
         when 'd'
-          return delete_render(task, id)
+          return render_delete(task, id)
 
         when 'q'
           return run_app
@@ -186,7 +188,7 @@ EOF
     system "clear"
     system "cls"
 
-    puts("(1) Update title - (2) Update description - (3) Update urgency - (4) Update deadline - (C) Cancel")
+    puts("(1) Update title - (2) Update description - (3) Update deadline - (C) Cancel")
 
     task.to_str
     option = gets.chomp
@@ -215,10 +217,6 @@ EOF
         task.description = gets.chomp
 
       when 3
-        puts("New urgency: ")
-        task.urgency = gets.chomp
-
-      when 4
         puts("New deadline: ")
 
         puts("Date in mm/dd/yyyy format")
@@ -248,6 +246,121 @@ EOF
     return update_render(task, id)
   end
 
+  def render_add_task ()
+    system "clear"
+    system "cls"
+
+    puts("Creating task...")
+
+    puts("\n\nTitle: ")
+    title = gets.chomp
+
+    puts("\nDescription: ")
+    description = gets.chomp
+
+
+    puts("\nDeadline: ")
+    puts("Date in mm/dd/yyyy format")
+    new_date = gets.chomp
+
+        if !date_valid?(new_date)
+          puts("Invalid date format!")
+          sleep(0.5)
+          return update_render task, id
+        end
+
+    task_create = Task.new(title, description, new_date)
+
+    puts("\n\n")
+
+    task_create.to_str
+
+
+    puts("\n\n(S) Save new task - (C) Cancel - (R) Remake task")
+    option = gets.chomp
+
+    if is_int option
+      puts("Invalid option!")
+      sleep(0.5)
+      return render_add_task
+
+    else
+      option = option.downcase
+
+      case option
+
+      when "s"
+        @task_list.add_task(task_create)
+        sleep(0.4)
+        return run_app
+
+      when "c"
+        puts("Canceling...")
+        sleep(0.5)
+        return run_app
+
+      when "r"
+        sleep(0.3)
+        return render_add_task
+
+      else
+        puts("Invalid option!")
+        sleep(0.4)
+        return render_add_task
+      end
+
+
+
+    end
+
+  end
+
+  def render_delete(task, id)
+
+    system "clear"
+    system "cls"
+
+    puts("Are you sure you want to delete this task?(Y/N)\n\n")
+
+    task.to_str
+
+    option = gets.chomp
+
+    if is_int option
+      puts("Invalid option!")
+      sleep(0.5)
+      return render_delete(task, id)
+
+    else
+      option = option.downcase
+
+      case option
+      when "y"
+        puts("Ok, deleting task")
+        sleep(0.5)
+        @task_list.remove_task task
+        return run_app
+
+      when "n"
+        puts("Ok, canceling")
+        sleep(0.5)
+        return render_one_task(task, id)
+
+      else
+
+        puts("Invalid option")
+        sleep(0.5)
+        return render_delete(task, id)
+
+      end
+
+
+    end
+
+
+  end
+
+
   def quit_render()
 
     system "clear"
@@ -256,7 +369,7 @@ EOF
 
     puts("(C) Cancel")
 
-    puts("Would you like to save before quitting? (Y/S)")
+    puts("Would you like to save before quitting? (Y/N)")
 
     option = gets.chomp
 
