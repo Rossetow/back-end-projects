@@ -14,7 +14,7 @@ ruby 3.2
 
 `git clone https://github.com/Rossetow/back-end-projects`
 
-`cd /todo-lists/ruby`
+`cd back-end-projects/todo-lists/ruby`
 
 `ruby main.rb`
 
