@@ -1,5 +1,4 @@
 services:
-  # Serviço da API (Node.js com TypeScript)
   api:
       build:
         context: ./api
@@ -16,7 +15,7 @@ services:
       networks:
         - app-network
 
-  # Serviço do Frontend (React.js)
+
   frontend:
       build:
         context: ./client
@@ -24,15 +23,13 @@ services:
       ports:
         - "3000:3000"
       environment:
-        NODE_APP_API_URL: "http://api:5050"  # URL da API
+        NODE_APP_API_URL: "http://api:5050"
       depends_on:
         - api
       networks:
         - app-network
 
-  # Serviço do Banco de Dados (MySQL)
   db:
-      # image: rossetow/messages-db:2.0
       build:
         context: ./db
       container_name: db
@@ -46,12 +43,10 @@ services:
         - app-network
       volumes:
         - db-data:/var/lib/mysql
-
-# Redes
+        
 networks:
   app-network:
     driver: bridge
 
-# Volumes para persistência de dados do banco
 volumes:
   db-data:
