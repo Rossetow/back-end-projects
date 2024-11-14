@@ -17,7 +17,7 @@ docker
 
 `git clone https://github.com/Rossetow/back-end-projects`
 
-`cd back-end-projects/dockerization`
+`cd back-end-projects/mysql_node_reactjs`
 
 ### Initializing 
 
@@ -25,7 +25,7 @@ docker
 
 This will build the images and start the containers for the application.
 
-The app will be available on `http://localhot:3000`
+The app will be available on `http://localhost:3000`
 
 And the API on `http://localhost:5050`
 
