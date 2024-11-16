@@ -1,10 +1,16 @@
 
 # Full stack dockerized application
 
+
 Full stack application
 
+
 Frontend: ReactJS
+
+
 Backend (API): NodeJS and Express
+
+
 Database: MySql
 
 ## Requisites
